@@ -26,15 +26,16 @@ jobs:
       run: |
         sing-box rule-set compile --output custom.srs custom.json
 
-    - name: set NOW
+    - name: Put current date into a variable
       run: |
-        echo "::set-env name=NOW::$(date +'%Y-%m-%dT%H:%M:%S')"
+        $NOW=& Get-Date -format yyyy-MM-dd
+        echo "NOW=$NOW" >> $env:GITHUB_ENV
 
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
       env:
-        GITHUB_TOKEN: ${{ secrets.REPO_TOKEN }}
+        GITHUB_TOKEN: ${{ github.token }}
       with:
         tag_name: ${{ env.NOW }}
         release_name: Release ${{ env.NOW }}
@@ -44,7 +45,7 @@ jobs:
     - name: Upload Release Asset
       uses: actions/upload-release-asset@v1
       env:
-        GITHUB_TOKEN: ${{ secrets.REPO_TOKEN }}
+        GITHUB_TOKEN: ${{ github.token }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: ./custom.srs
