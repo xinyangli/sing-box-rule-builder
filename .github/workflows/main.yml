@@ -25,3 +25,10 @@ jobs:
     - name: Compile ruleset
       run: |
         sing-box rule-set compile --output custom.srs custom.json
+            - name: Upload a Build Artifact
+
+    - name: Upload ruleset file
+      uses: actions/upload-artifact@v2
+      with:
+        name: custom-ruleset
+        path: custom.srs
