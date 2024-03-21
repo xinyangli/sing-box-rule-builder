@@ -26,6 +26,10 @@ jobs:
       run: |
         sing-box rule-set compile --output custom.srs custom.json
 
+    - name: set NOW
+      run: |
+        echo "::set-env name=NOW::$(date +'%Y-%m-%dT%H:%M:%S')"
+
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
