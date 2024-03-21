@@ -1,0 +1,27 @@
+name: Build ruleset
+
+# Controls when the action will run.
+on:
+  # Triggers the workflow on push events but only for the main branch
+  push:
+    branches: [ main ]
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      
+    - name: Download sing-box
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y curl
+        bash <(curl -fsSL https://sing-box.app/deb-install.sh)
+
+    - name: Compile ruleset
+      run: |
+        sing-box rule-set compile --output custom.srs custom.json
