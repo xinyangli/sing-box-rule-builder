@@ -3,7 +3,8 @@
     "rules": [
         {
             "domain": [
-                "ysyx.oscc.cc"
+                "ysyx.oscc.cc",
+                "home.xinyang.life"
             ]
         }
     ]
